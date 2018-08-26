@@ -4,7 +4,6 @@ var listOfSymbols = document.querySelectorAll('.symbol');
 var reset = document.querySelector('.reset');
 var moves = document.querySelector('.moves');
 var stars = document.querySelectorAll('.fa-star');
-console.log(stars);
 var mask = document.getElementById('mask');
 var restart = document.getElementById('new-game');
 var currentFlips = 0;
@@ -29,7 +28,6 @@ function startNewGame() {
         newGame.push(listOfSymbols[i].className);
     }
     shuffle(newGame);
-    console.log(newGame);
     for (let j = 0; j < listOfCards.length; j++) {
         listOfSymbols[j].className = newGame[j];
     }
@@ -66,8 +64,6 @@ function cardClick(event) {
         flipCard(currentCard);
         // Update the score panel.
         movesAndStars();
-        console.log('one round end.')
-    // Alert when a game is won. Set a timeout to wait for the last 'matched' animation.
 }
 
 function flipCard(card) {
@@ -86,7 +82,6 @@ function flipCard(card) {
             } else {
                 openArray = [];
             }
-            console.log(openArray);
             compare();
         }, 500);
     }
@@ -119,7 +114,7 @@ function match(array) {
     array[0].classList.add('match');
     array[1].classList.add('match');
     openedCards += 2;
-    console.log(openedCards);
+    // Alert when a game is won. Set a timeout to wait for the last 'matched' animation.
     if (openedCards == 16) {
         console.log('won');
         setTimeout(function() {won();}, 1500);
@@ -148,13 +143,11 @@ function movesAndStars() {
 }
 
 function won() {
-    // if (wonCount == 2) {
-    //     return;
-    // }
     // 'Star' instead of 'stars' for one or no star.
     if (starMeasure <= 1) {
         plural = '';
     }
+    // Alert animation from https://sweetalert2.github.io
     swal({
         title: 'Congratulations!!',
         type: 'success',

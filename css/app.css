@@ -140,42 +140,7 @@ h1 {
     z-index: 1000;
 }
 
-#cong {
-    font-size: 40px;
-    font-weight: 900;
-    text-align: center;
-    animation: pulse 1s;
-    -moz-animation: pulse 1s;	/* Firefox */
-    -webkit-animation: pulse 1s;	/* Safari and Chrome */
-    -o-animation: pulse 1s;	/* Opera */
-}
-
-#score {
-    font: 18px;
-    font-weight: 90;
-    text-align: center;
-    animation: pulse 1s;
-    -moz-animation: pulse 1s;	/* Firefox */
-    -webkit-animation: pulse 1s;	/* Safari and Chrome */
-    -o-animation: pulse 1s;	/* Opera */
-}
-
-#new-game {
-    width: 100px;
-    height: 40px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    border-radius: 3px;
-    margin: 0 auto;
-    cursor: pointer;
-}
-
-#restart {
-    text-align: center;
-    line-height: 40px;
-    margin-top: 2em;
-    color: white;
-}
-
+/* Below are animations adopted from https://daneden.github.io/animate.css/ */
 @keyframes flip {
   from {
     -webkit-transform: scale3d(1, 1, 1);
