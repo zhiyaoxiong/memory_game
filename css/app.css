@@ -140,7 +140,7 @@ h1 {
     z-index: 1000;
 }
 
-/* Below are animations adopted from https://daneden.github.io/animate.css/ */
+/* Below are animations adapted from https://daneden.github.io/animate.css/ */
 @keyframes flip {
   from {
     -webkit-transform: scale3d(1, 1, 1);
