@@ -1,27 +1,36 @@
 var deck = document.querySelector('.deck');
 var listOfCards = document.querySelectorAll('.card');
 var listOfSymbols = document.querySelectorAll('.symbol');
+var timer = document.querySelector('.timer');
 var reset = document.querySelector('.reset');
 var moves = document.querySelector('.moves');
 var stars = document.querySelectorAll('.fa-star');
 var mask = document.getElementById('mask');
 var restart = document.getElementById('new-game');
+var minute = 0;
+var second = 0;
+var totalSecond = 0;
 var currentFlips = 0;
 var currentMoves = 0;
 var starMeasure = 3;
-var plural = 's';
+var plural = ['', 's'];
 var openedCards = 0;
 var openArray = new Array();
+var gameWon = false;
 
 // Initialization.
+var interval;
 startNewGame();
 
 deck.addEventListener('click', cardClick, true);
 reset.addEventListener('click', startNewGame);
 
 function startNewGame() {
+    window.clearInterval(interval);
+    gameWon = false;
     // Reset & shuffle the cards.
     var newGame = new Array();
+    timer.innerText = '0 min 0 sec';
     moves.innerText = '0';
     for (let i = 0; i < listOfCards.length; i++) {
         listOfCards[i].className = 'card';
@@ -32,6 +41,9 @@ function startNewGame() {
         listOfSymbols[j].className = newGame[j];
     }
     // Reset the score panel.
+    minute = 0;
+    second = 0;
+    totalSecond = 0;
     currentFlips = 0;
     currentMoves = 0;
     for (let k = 0; k < stars.length; k++) {
@@ -39,8 +51,10 @@ function startNewGame() {
     }
     openArray = [];
     openedCards = 0;
-    wonCount = 0;
+    plural = ['', 's'];
+    interval = window.setInterval(gameTimer, 1000);
 }
+
 // The 'shuffle' function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -52,6 +66,17 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
     return array;
+}
+
+function gameTimer() {
+    if (gameWon == true) {
+        window.clearInterval(interval);
+    } else {
+        totalSecond += 1;
+        minute = Math.floor(totalSecond / 60);
+        second = totalSecond % 60;
+        timer.innerText = minute + ' min ' + second + ' sec';
+    }
 }
 
 function cardClick(event) {
@@ -143,15 +168,19 @@ function movesAndStars() {
 }
 
 function won() {
-    // 'Star' instead of 'stars' for one or no star.
+    gameWon = true;
+    // Check plural for 'star' and 'minute'.
+    if (minute > 1) {
+        plural[0] = 's';
+    }
     if (starMeasure <= 1) {
-        plural = '';
+        plural[1] = '';
     }
     // Alert animation from https://sweetalert2.github.io
     swal({
         title: 'Congratulations!!',
         type: 'success',
-        text: 'You have won the game with ' + currentMoves + ' moves and ' + starMeasure + ' star' + plural + '!',
+        text: 'You have won the game in ' + minute + ' minute' + plural[0] + ' ' + second + ' seconds, with ' + currentMoves + ' moves and ' + starMeasure + ' star' + plural[1] + '!',
         confirmButtonText: 'Restart'
     }).then((result) => {
         if (result.value) {
